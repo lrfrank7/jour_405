@@ -80,7 +80,7 @@ The average number of crimes to occur Write up a lede and nutgraf of a story foc
 Prince George's County reported an uptick in auto theft crimes during the summer, according to recent county crime data. 
 
 
-Motor vehicle-related crimes consistently rank among the most common crimes Prince George's County residents are at risk of, far higher than violent crimes such as assaults and homicides. While auto theft climbed above average beginning in June, the data shows that it slightly decreased in number towards the end of the summer.  
+Motor vehicle-related crimes consistently rank among the most common crimes Prince George's County residents are at risk of, far higher than violent crimes such as assaults and homicides. While auto theft climbed above average beginning in June, the data shows a slight decreased in the crime towards the end of the summer.  
 
 ### Task 9: Save Your Work and Put it on GitHub
 

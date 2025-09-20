@@ -55,10 +55,10 @@ wh_salaries |>
 
 Write a couple of sentences describing the results of your analysis. What do the mean and median salaries tell you about the data? What do the minimum and maximum salaries tell you? Are there any outliers in the data?
 
-The mean and median salary are relatively close in value. 
+The mean and median salary are relatively close in value which tells me that the data is accurate. The outliers in the data include the max and min salaries.  
 
 ### Task 7: Story Idea
 
 Based on the data, what is your best story idea? What is the next step you would take to develop that story idea?
 
-ANSWER HERE
+Based on the data, the best story idea I can think of is maybe something related to why some of the salaries aren't all available? I don't know if that's a mistake or glitch on the WH's part, but it's strange that there isn't a salary listed for every position. I think it would be interesting to develop a story related story to the $0 earning positions. Why is that? 

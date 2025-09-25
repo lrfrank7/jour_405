@@ -47,10 +47,9 @@ Let's add two percentage change columns to your dataframe: one for violent crime
 
 ```{r}
 md_cities_change <- md_cities |>
-  mutate(violent_change = ((violent2020-violent2019)/ violent2019) * 100,)
-  property_change = ((property2020-property2019) /property2019) * 100) 
-|>
-    select(city, pop2020, pop2019, violent2019, violent2020)
+  mutate(violent_change = ((violent2020-violent2019)/ violent2019) * 100,
+  property_change = ((property2020-property2019) /property2019) * 100
+  ) 
 ```
 
 ### Task 7: Describe Percentage Changes
@@ -68,5 +67,19 @@ In 2020, violent and property crimes decreased in populous Maryland cities such 
 While Baltimore reported a 15.3% drop in violent crime and a 28% drop in property crime in 2020, Ocean City saw violent crime surge by more than 82%. The Pandemic may have played a role in driving down crime in Baltimore.
 
 ### Task 9: Save Your Work and Put it on GitHub
-
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+### Task 10: Using the 2020 violent crime rate, calculate the percentiles using `ntile()`. Save the results to a new dataframe called `md_cities_percentiles`. 
+
+```{r}
+md_cities_percentiles <- md_cities_rates |> mutate(percentile = ntile(violent_rate_2020, 100))
+```
+How many cities are above the 90th percentile? Including the 90th percentile (Cumberland) it would be 11 cities. 
+
+### Task 11: Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
+
+```{r}
+ md_cities_rates |> summarize(IQR_violent_rate_2020 = IQR(violent_rate_2020))
+```
+Do the results change your best story idea from the previous assignment? Why or why not?
+Because the IQR is almost 42%, there is large difference in violent crimes across Maryland. Some cities have a higher violent crime rate due to its number of crimes per the population. 

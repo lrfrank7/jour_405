@@ -1,0 +1,104 @@
+---
+title: "Oct 1 Activities: M&Ms; Survey; Sampling"
+date: 9-30-2025
+---
+
+All three class activities are on this .rmd notebook
+
+Activity #1: Activity: M&Ms - Central Limit Theorem
+
+Working in groups, each group will get a handful of candy from the bag, and then count the number of red and black candies. Log those in this Google Sheet 
+
+https://docs.google.com/spreadsheets/d/1KOeoVTq2W7L2T9sWjwh5U_2f59GsTeAylVGD53rNWww/edit?usp=sharing
+
+(give your group a nice name).
+
+Take a look at the values that we all get - what do you notice about the patterns? This is an exercise about the central limit theorem. 
+
+The central limit theorem states that the sampling distribution of the mean of any independent, random variable will be normal or nearly normal, if the sample size is large enough.
+
+Then discuss and try to answer these questions:
+
+--How close is your group's mean to the true proportion of 50%?
+--Why do different groups get different results?
+--What happens to individual extreme results when we combine all groups?
+--How does this relate to polls and surveys in real life?
+
+Write your answer below. And then you may eat the M&Ms.
+
+**A:
+- My group's mean was above the true proportion of 50%. Our group's color M&M mean was 85%. We had the smallest % of brown/red compared to the other groups. 
+- Different groups get different results because each bag of M&Ms will vary in totals. My group had the most M&Ms. The average colored M&M % for all the groups was 89.05%, and my group's colored M&M % average was below at 85%. 
+- When we combine all the groups, the individual extremes become mixed in the average with the rest of the values. 
+- In real life, polls and survey's that do random sampling are not always accurate of the whole population. For example, if you sample a population at a polling site near a senior center, you might only have a certain sample of the population (older folks) 
+------------------------------------------------------------------------------
+
+# Activity #2:
+
+Belonging Survey
+
+Working in pairs, take a look back at the main findings from UMD's Belonging Survey:
+
+https://president.umd.edu/internal/belonging
+
+
+Specifically, focus on the "Sample Description" section and the Appendix. Discuss the differences and between the population and the sample, and what the document says about how the survey attempted to deal with them. Are there any decisions described in the document that raise questions in your minds? Detail the differences you see and your understanding of the methods they employed (it's ok if you don't understand all of them), and add your questions. You should discuss this as a pair but submit individually.
+
+**A: UMD staff made up a majority of the 12,233 person sample. Out of the total population which was 53,
+
+In the Appendix section, there was a couple identities that didn't have enough respondents for an individual analysis. For example, Alaska Native, American Indian/Native American/Indigenous, Levantine/Middle Eastern/Southwest Asian/North African (SWANA), Native Hawaiian, Pacific Islander, and Jewish students did not make up enough of respondents. Although there was a 23% response rate (most of those respondents were staff,) it seems like a lot of individual responses are not exactly represented. This leads me to believe that the survey isn't representative of the student body, especially students from marginalized groups. 
+------------------------------------------------------------------------------
+
+# TASK 3: SAMPLING
+
+Based on the class sampling demo (available on Elms), sample data from a population using R and the Tidyverse. You should get started by loading the tidyverse in a new R block.
+
+### Task 1: Load the tidyverse
+
+**A**
+```{r}
+library(tidyverse)
+```
+
+
+### Task 2: Load 1,000 rows of data with the ages of people from 18-80
+
+**A**
+```{r}
+set.seed(42)
+younguns <- tibble(
+  age = sample(18:80, 1000, replace = TRUE)
+)
+head(younguns)
+```
+
+### Task 3: Sample 100 rows of data from the dataset
+**A**
+```{r}
+sample_50 <-younguns |> 
+  sample_n(50)
+```
+
+
+### Task 4: Calculate the mean age and standard deviation of the sample
+**A**
+```{r}
+sample_50 |> summarize(mean = mean(age), median = median(age), sd = sd(age))
+
+
+```
+
+
+### Task 5: Calculate the mean age and standard deviation of the population
+**A**
+```{r}
+younguns |> summarize(mean = mean(age), median = median(age), sd = sd(age))
+```
+
+
+### Task 6: Compare the sample and population statistics
+Compare the means and standard deviations. Are they similar? Go back and re-run the sampling and statistics calculations with a smaller sample size. How do the results change?
+
+**A**: The mean and median of sample are slightly smaller than that of the population. The standard deviation of the sample is slightly larger than that of the population. The sample is a pretty accurate representation of the population. I changed the sample size to 50 and the mean and SD stay about the same. 
+
+When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.

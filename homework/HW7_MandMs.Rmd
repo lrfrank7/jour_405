@@ -6,21 +6,36 @@ In this assignment, you'll be picking up where you left off with the M&Ms activi
 
 ### Task 1: Load the tidyverse
 
+```{r}
+library(tidyverse)
+```
 
 ### Task 2: Load the M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
-
+```{r}
+MM <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
 
 ### Task 3: Sample 5 rows of data from the dataset
-
+```{r}
+sample_5 <-MM |> 
+  sample_n(5)
+```
 
 ### Task 4: Calculate the mean age and standard deviation of the sample, using either the blue or white number of M&Ms
-
+```{r}
+sample_5 |> summarize(mean = mean(blue), median = median(blue), sd = sd(blue),
+                      mean = mean(white), median = median(white), sd = sd(white) 
+                      )
+```
 
 ### Task 5: Calculate the mean age and standard deviation of the population, using the same measure as in Task 4
-
+```{r}
+MM |>  
+```
 
 ### Task 6: Compare the sample and population statistics
-
+```{r}
+```
 Compare the two sets of means and standard deviations. Are they similar?
 
 ### Task 7: Describe the results

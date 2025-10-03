@@ -1,0 +1,74 @@
+---
+title: "HW7_MandMs"
+date: 10/1/2025
+---
+
+In this assignment, you'll be picking up where you left off with the M&Ms activity. You'll load the data and perform some basic statistical analysis. Follow the steps below to complete the assignment.
+
+### Task 1: Load the tidyverse
+
+```{r}
+library(tidyverse)
+```
+
+### Task 2: Load an M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
+```{r}
+MM <- read_csv ("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
+
+### Task 3: Sample 5 rows of data from the dataset, and then sample 10 rows, saving each to separate dataframes called sample5 and sample10. Be sure to use set.seed(1234) before you start.
+```{r}
+set.seed(1234)
+sample5 <- MM |> 
+  sample_n(5)
+sample10 <- MM |>
+  sample_n(10)
+```
+
+
+### Task 4: Calculate the mean, median and standard deviation of red M&Ms from each of the samples.
+```{r}
+sample5 |> summarize(mean= mean(red), median = median(red), sd = sd(red))
+sample10 |> summarize(mean = mean(red), median = median(red), sd = sd(red))
+```
+
+
+### Task 5: Calculate the mean, median and standard deviation of red M&Ms from the population
+
+```{r}
+MM |> summarize(mean = mean(red), median = median(red), sd = sd(red))
+```
+
+### Task 6: Make three histograms: one each for sample5, sample10 and the original dataset. Include a headline. Use a consistent binwidth.
+
+```{r}
+sample5 |> 
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 4) +
+  labs(title="Distribution of Red M&Ms", x = "Number of Red M&Ms", y = "Number of people with M&Ms") 
+sample10 |>
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 4) +
+  labs(title="Distribution of Red M&Ms", x = "Number of Red M&Ms", y = "Number of people with M&Ms")
+MM |>
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 4) +
+  labs(title="Distribution of Red M&Ms", x = "Number of Red M&Ms", y = "Number of people with M&Ms")
+```
+
+
+### Task 7: Answer questions
+
+Compare the three sets of means, standard deviations and histograms. Which are more helpful to you in understanding the accuracy of the samples?
+A: Among the three sets of means, sd's and histograms, the population values are most helpful in understanding the accuracy of the samples because it provides a more spread out or distributed version of the data that covers a wide range of values. A population histogram shows the entire population's distribution rather than a small portion of it, which may not accurately represent.
+
+What does this exercise tell you about the relationship between sample size and estimate accuracy?
+A: This exercise tells me that the larger sample sizes produce more accurate estimates that are closer to the actual population. The more data available, the less likely the outliers/extreme values will impact the data and accuracy. 
+
+How does random sampling introduce variation into statistical estimates?
+A: Random sampling introduces variation into statistical estimates because each sample chosen will be different. 
+
+If you repeated this process, would the samples always be identical? Why or why not?
+A: The samples would not always be identical because the randomness is what creates differences in sample statistics compared to one another and the population.
+
+When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.

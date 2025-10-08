@@ -99,9 +99,9 @@ Use the `ggplot()` function to create a scatterplot of the DJIA and GDP. Be sure
 ```{r}
 GDP|> 
   ggplot() +
-  geom_point(aes(x=GDP, y=DJIA)) +
-  geom_smooth(aes(x=GDP, y=DJIA), method="lm")
-  labs(title="Relationship between two economic indicators", x = "GDP", y = "DJIA")
+  geom_point(aes(x = GDP, y= DJIA)) +
+  geom_smooth(aes(x = GDP, y= DJIA), method = 'lm') +
+  labs(title = "Relationship between two economic indicators", x = "GDP", y = "DJIA")
 ```
 
 ### Task 5: Describe our results

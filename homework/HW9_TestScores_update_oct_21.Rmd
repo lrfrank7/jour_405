@@ -116,8 +116,8 @@ Examine the chart you created, and suggest a better title based on the results o
 This is where we formally test the superintendent's claim that reading scores have improved. Fill in the REPLACE_ME values as needed, beginning with your hypotheses.
 
 **Hypotheses:**
-Null: The new reading program has not increased reading scores
-Alternative: The new reading program has increased reading scores
+Null: The new reading program has not increased reading scores (μ ≤ 72.6)
+Alternative: The new reading program has increased reading scores (μ > 72.6)
 
 ```{r}
 # Set the significance level for your test
@@ -130,6 +130,9 @@ t_test_result <- t.test(
   mu = prior_mean,
   alternative = "greater"
 )
+p_value <- t_test_result$p.value
+
+format(p_value, scientific = FALSE)
 
 # Display the results
 t_test_result

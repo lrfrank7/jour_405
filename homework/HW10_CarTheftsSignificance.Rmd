@@ -1,7 +1,11 @@
 ---
 title: "Car Thefts Significance"
-name: REPLACE WITH YOUR NAME
+author: "Derek Willis/Rob Wells"
+date: 10-27-2025
 ---
+
+name: Lauren Frank
+
 
 Your editor wants to know if there have been recent changes in the number of car thefts in Prince George's County. Using monthly figures and significance testing, you'll come up with an answer and decide whether there's a story here. As with the previous homework, provide answers in this notebook when prompted and you will have to fill in values where you see REPLACE_ME. Get started by loading the tidyverse in a new R block.
 
@@ -9,28 +13,25 @@ Your editor wants to know if there have been recent changes in the number of car
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# LOAD THE TIDYVERSE
+library(tidyverse)
 ```
 
 
 ### Task 2: Load the Prince George's county crime data and generate car thefts totals by month
 
 ```{r}
-
 # Read the data
-car_thefts <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/car_thefts_month.csv")  |> 
-  arrange(month)  # Sort by date
+car_thefts <- read_csv ("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/car_thefts_month.csv") |>
+  
+arrange(month) # Sort by date
 
 # Basic inspection of the data
 glimpse(car_thefts)
-
 ```
 
 ### Task 3: Let's make a chart and describe the results.
 
-We'll make a line chart using geom_line() to try and illustrate any trend over time. What's your initial reaction to the change in car thefts? Is there a trend?
-
-PUT ANSWERS HERE
+We'll make a line chart using geom_line() to try and illustrate any trend over time. 
 
 ```{r}
 
@@ -52,16 +53,25 @@ ggplot(aes(x = month, y = total)) +
 
 ```
 
+
+**Q3:** What's your initial reaction to the change in car thefts? Is there a trend?
+
+I'm surpised that some of the lowest number of car thefts occured in the April. I would think that there would be less car thefts in the winter months like Jan. or Feb. I noticed that in both 2023 and 2024, it appears there was a spike in car thefts in the fall months around Sept/Oct. I also noticed that there was a significant drop of car thefts from Dec. to Jan. 
+
+Generally, the trend I noticed is that number of car thefts were higher during the Summer (around July) and in the fall, with noticably higher peaks in Dec. 2023 and Oct 2024. 
+
 ### Task 4: Add the mean, standard error and calculate a margin of error based on a 95% confidence interval
 
 Let's add some stats to that process - mean and standard deviation - and calculate the standard error and 95% confidence intervals. We only have a small number of months, so we'll calculate the margin of error to account for that. 
+
+**INSERT CORRECT VARIABLE AT "REPLACE ME"**
 
 ```{r}
 
 theft_summary <- car_thefts |> 
   summarize(
     mean_thefts = mean(total),
-    sd_thefts = sd(REPLACE_ME),
+    sd_thefts = sd(total),
     months = n(),
     se_thefts = sd_thefts / sqrt(months),
     margin_error = qt(0.975, df = months - 1) * se_thefts,  # Using t-distribution for small sample
@@ -79,8 +89,6 @@ theft_summary
 ### Task 5: Visualize the data
 
 Let's make a better chart showing the changes and the statistics we produced in Task 4. Does this change anything about your answer from Task 3?
-
-
 
 ```{r}
 # Make a better chart
@@ -106,11 +114,11 @@ ggplot(aes(x = month, y = total)) +
 
 ### Task 6: Describe the confidence interval.
 
-- What does the 95% confidence interval show here?
-- What figure(s) accurately reflects the number of car thefts in a typical month?
-- Propose a headline about the trend in car thefts that is focused on the present and future, but informed by the data you see above.
+- What does the 95% confidence interval show here? The 95% confidence intervals shows that 95% of the confidence intervals created capture the true value, and it gives the range of plausible values for the parameter of car thefts. 
 
-PUT YOUR ANSWERS HERE.
+- What figure(s) accurately reflects the number of car thefts in a typical month? The mean shows the “typical” number of car thefts per month. The 95% confidence interval show the plausible range around that mean. 
+
+- Propose a headline about the trend in car thefts that is focused on the present and future, but informed by the data you see above. ** "Car Thefts Return to Typical Levels in Prince George’s County despite seasonal spikes”
 
 
 ### Task 7: Is the recent trend significant?
@@ -119,6 +127,8 @@ It _looks_ like car thefts are decreasing lately. But is that change real? We'll
 
 Null Hypothesis: there is no real difference between the two periods
 Alternative Hypothesis: there is a real difference between the two periods
+
+**INSERT CORRECT VARIABLES AT "REPLACE ME"**
 
 ```{r}
 
@@ -138,11 +148,11 @@ t_test_periods
 period_summary <- car_thefts |> 
   group_by(period) |> 
   summarize(
-    mean_thefts = mean(REPLACE_ME),
+    mean_thefts = mean(total),
     sd_thefts = sd(total),
     months = n(),
     se_thefts = sd_thefts / sqrt(months),
-    margin_error = qt(0.975, df = REPLACE_ME - 1) * se_thefts, # look at how we calculated this above
+    margin_error = qt(0.975, df = months - 1) * se_thefts, # look at how we calculated this above
     ci_lower = mean_thefts - margin_error,
     ci_upper = mean_thefts + margin_error
   )
@@ -166,12 +176,13 @@ ggplot(aes(x = period, y = mean_thefts, fill = period)) +
 
 ### Task 8: Reflection
 
-Given the above chart, is the difference between the two periods statistically significant? Can we reject the null hypothesis?
+Given the above chart, is the difference between the two periods statistically significant? Can we reject the null hypothesis? 
 
-How would you revise your headline from Task 6, if at all? What would you tell your editor, and what would you expect her to ask you?
+Given the chart above, there is no statistically significant difference between the first and second periods. We can't reject the null hypothesis because the p-value (0.18) is greater than the alpha (0.05). The null hypothesis stated that there is no statistical difference between the two periods.
 
-PUT ANSWERS HERE
+How would you revise your headline from Task 6, if at all? What would you tell your editor, and what would you expect her to ask you? 
 
-
+- Revised headline: "
+- I would tell my editor that although there’s a visual decline in recent months, the difference isn’t statistically significant enough. I might expect her to ask me whether there's a real decrease either shown through the recent or long-term data. 
 
 When you are finished, add, commit and push your notebook and submit the URL in ELMS.

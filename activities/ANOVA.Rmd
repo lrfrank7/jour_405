@@ -1,6 +1,6 @@
 ---
 title: "ANOVA for Journalists: Analyzing College Admissions Test Scores"
-date: 8-22-2025
+date: 11-3-2025
 ---
 
 ```{r setup, include=FALSE}
@@ -60,10 +60,15 @@ admission_summary <- admissions_data |>
 print(admission_summary)
 ```
 
+Context: Fall 2024 midpoint SAT for University of Maryland was 1,465.
+
+
 **Task 3** Describe the data
 
 Write a couple of sentences describing the differences in SAT scores between types of colleges, using the descriptive statistics we just generated.
 
+
+**Task 3: Write your answer here: The highest SAT scores are among private colleges. The mean score for private colleges is 1435 while the mean scores among community college and public schools is lower 
 
 
 ## Task 4: Visualize the Data
@@ -108,6 +113,29 @@ summary(anova_result)
 
 The F-value is huge (284.3). The F-value measures the ratio of between-group variance to within-group variance, and this high value suggests the differences between college types far outweigh the variation within each type. The p-value is very low, indicating the differences between college types are statistically significant at any reasonable significance level. The three asterisks (***) highlight that this is significant at the 0.001 level. So we can say that with confidence that there are real differences in SAT scores between the three types of colleges.
 
+How do we know the F-value is huge?
+We can calculate the critical value for an F statistic by using the qf() function in R
+
+```{r}
+# Your ANOVA has:
+# df1 (between groups) = 2
+# df2 (within groups/residuals) = 297
+# Common alpha levels: 0.05, 0.01, 0.001
+
+# Critical values at different significance levels:
+critical_f_05 <- qf(0.95, df1 = 2, df2 = 297)
+critical_f_01 <- qf(0.99, df1 = 2, df2 = 297)
+critical_f_001 <- qf(0.999, df1 = 2, df2 = 297)
+
+cat("Here are the Critical F-values:\n")
+cat("alpha of α = 0.05: ", round(critical_f_05, 3), "\n")
+cat("alpha of α = 0.01: ", round(critical_f_01, 3), "\n")
+cat("alpha ofα = 0.001:", round(critical_f_001, 3), "\n")
+cat("The F-statistic is: 284.3\n")
+cat("Ratio to most extreme critical value (α=0.001) to the F statistic:", round(284.3/critical_f_001, 1), "x\n")
+```
+
+
 ## Task 5: Compare the differences between specific pairs
 
 ```{r post-hoc}
@@ -129,8 +157,17 @@ All comparisons show extremely small p-values, indicating these differences are 
 Based on our analysis, we can now answer:
 
 1. Is there a significant difference in SAT scores across college types?
+
+There is a significant different in SAT scores across college types because the P-values exceed the threshold. 
+
 2. Which specific college types differ from each other?
+Public and private schools differ from each other. For example, the difference in the means between public and private schools is - 74.4. The differences in SAT scores across college types was the most statistically significant among public and private schools.
+
 3. How large are these differences?
+Using the Tukey test, the difference between private v. community is 366.96, the difference between public v. community is 292.56 and the difference between public v. private is -74.4.
 
 Answer those questions, providing evidence for your answers, and then write a headline and a lead paragraph reporting these findings using active voice and focusing on the differences across types.
 
+"Private College Students Outperform Public College Peers on SAT."
+
+Recent data reveals significant differences in SAT scores across private, public and community colleges. Private colleges achieved the highest average scores, followed by public institutions, while community colleges reported the lowest. Statistical analysis confirmed that these differences are highly significant.

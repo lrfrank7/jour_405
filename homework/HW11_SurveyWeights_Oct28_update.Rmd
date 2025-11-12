@@ -3,13 +3,15 @@ title: "HW11: Education Level and Survey Weighting"
 author: "Derek Willis/Rob Wells"
 date: 10-28-2025
 ---
-
-
 Lauren Frank
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
+```
+
+```{r}
+billboard <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVR7XE8UGPh9EYKpSLzrNA0kXqcQo3AONREuc6mAAaHAu-8ia01STi_HrHgATfgJ5n9xUAUHPSl9ou/pub?gid=1077686609&single=true&output=csv")
 ```
 
 # Introduction

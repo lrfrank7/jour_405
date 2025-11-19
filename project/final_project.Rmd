@@ -11,10 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(janitor)
 ```
 
 ```{r}
-billboard <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVR7XE8UGPh9EYKpSLzrNA0kXqcQo3AONREuc6mAAaHAu-8ia01STi_HrHgATfgJ5n9xUAUHPSl9ou/pub?gid=1077686609&single=true&output=csv")
+billboard <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVR7XE8UGPh9EYKpSLzrNA0kXqcQo3AONREuc6mAAaHAu-8ia01STi_HrHgATfgJ5n9xUAUHPSl9ou/pub?gid=1077686609&single=true&output=csv") |>
+  clean_names() |>
+  mutate(date_new=dmy(date))
 ```
 1) Describe a hypothesis about what makes a hit song or come up with some other question/hypothesis.
 
@@ -35,6 +38,8 @@ The columns most important for my analysis are, date and CDR genre. I'm focusing
 I might want a column or data that may specify what classifies a song as pop? Other than that, I cannot think of anything that I might additionally need. 
 
 5) Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values, standard deviation. 
+
+Date Filter --> sort by the decade of the 80s and then 
 
 ```{r}
 

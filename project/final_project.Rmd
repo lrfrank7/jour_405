@@ -16,6 +16,33 @@ library(tidyverse)
 ```{r}
 billboard <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVR7XE8UGPh9EYKpSLzrNA0kXqcQo3AONREuc6mAAaHAu-8ia01STi_HrHgATfgJ5n9xUAUHPSl9ou/pub?gid=1077686609&single=true&output=csv")
 ```
+1) Describe a hypothesis about what makes a hit song or come up with some other question/hypothesis.
+
+Answer: There are several factors that go into making a hit song. For one, the hit song is a song that is at No.1 for at least a week. All of the songs featured in the dataset have been in this position. A possible hypothesis I have about what makes hit a song is whether that song is in a certain genre, for example Pop, Rock, Hip Hop, etc. 
+
+The hypothesis I want to focus on for this project is whether the Pop songs were more popular in the 1980s or the early 2000s. 
+
+2) What does it (the data) contain and what time period does it cover?
+
+Answer: The data contains Billboard Hot 100 No. 1 songs from the time period of August 1985 to January 2025. Specifically, the data contains the following information about the song: song name, release date, # of weeks at No. 1, label name, genre (CDR and Discogs,) and overall rating on scale from 1 to 10. The data also contains information/demographics about the artist including their country of origin, race, gender. It also contains the same demographics about the producer, and songwriter. Lastly, the data contains information about the music, including the time signature, key, BPM, danceability and happiness scores. 
+
+3) Which columns will be most important for your analysis?
+
+The columns most important for my analysis are, date and CDR genre. I'm focusing only on the CDR genre category, not the others (CDR style, Discogs Genre and Style.)
+
+4) What's missing that you might need or want?
+
+I might want a column or data that may specify what classifies a song as pop? Other than that, I cannot think of anything that I might additionally need. 
+
+5) Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values, standard deviation. 
+
+```{r}
+
+
+```
+
+
+
 
 ## R Markdown
 

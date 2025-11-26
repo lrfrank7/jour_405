@@ -14,6 +14,7 @@ library(tidyverse)
 library(janitor)
 library(dplyr)
 library(knitr)
+library(scales)
 ```
 
 ```{r}
@@ -25,25 +26,25 @@ billboard <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVR7XE8U
                              date_new)) |>
   select(date_new, everything())
 ```
-1) Describe a hypothesis about what makes a hit song or come up with some other question/hypothesis.
+## 1) Describe a hypothesis about what makes a hit song or come up with some other question/hypothesis.
 
 Answer: There are several factors that go into making a hit song. For one, the hit song is a song that is at No.1 for at least a week. All of the songs featured in the dataset have been in this position. A possible hypothesis I have about what makes hit a song is whether that song is in a certain genre, for example Pop, Rock, Hip Hop, etc. 
 
 The hypothesis I want to focus on for this project: Were Pop songs more popular in the 1980s or the early 2000s? 
 
-2) What does it (the data) contain and what time period does it cover?
+## 2) What does it (the data) contain and what time period does it cover?
 
 Answer: The data contains Billboard Hot 100 No. 1 songs from the time period of August 1985 to January 2025. Specifically, the data contains the following information about the song: song name, the date it hit No. 1, # of weeks at No. 1, label name, genre (CDR and Discogs,) and overall rating on scale from 1 to 10. The data also contains information/demographics about the artist including their country of origin, race, gender. It also contains the same demographics about the producer, and songwriter. Lastly, the data contains information about the music, including the time signature, key, BPM, danceability and happiness scores. 
 
-3) Which columns will be most important for your analysis?
+## 3) Which columns will be most important for your analysis?
 
 Answer: The columns most important for my analysis are, date, weeks_at_number_one, cdr_genre. I'm focusing only on the CDR genre category, not the others (CDR style, Discogs Genre and Style.) 
 
-4) What's missing that you might need or want?
+## 4) What's missing that you might need or want?
 
 Answer: I might want a column may separate the decades from each other? Other than that, I cannot think of anything that I might additionally need. 
 
-5) Filtering the Data: Here, I am creating a table that consists only of cdr_genre pop songs from the Billboard Hot 100 No. 1 list.
+## 5) Filtering the Data: Here, I am creating a table that consists only of cdr_genre pop songs from the Billboard Hot 100 No. 1 list.
 ```{r}
 pop_songs <- billboard |>
 filter(cdr_genre == "Pop")
@@ -59,7 +60,7 @@ pop_2000s <- pop_songs |>
 filter(date_new >= "2000-01-01", date_new <= "2009-12-31")
 ```
 
-6) Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values, standard deviation.
+## 6) Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values, standard deviation.
 
 ```{r}
 stats_80s <- pop_80s |>
@@ -89,13 +90,13 @@ Interpreting the data: According to the statistics, I found that of the 75 pop s
 
 Moreover, I found that the standard deviation for pop songs in the early 2000s (2.3) is higher than in the 1980s (1.9). This means means that the early 2000s had a much wider range and greater variability in how long pop songs stayed at No. 1., so the popularity was less consistent. On the other hand, the 1980s have a lower standard deviation, indicating that pop songs in that decade were more consistent in their chart performance and tended to stay at No.1 for similar lengths of time. The smaller the standard deviation, the more tightly clustered the values are around the mean, so chart performance was more predictable. 
 
-7) Newsworthy Hypothesis
+##7) Newsworthy Hypothesis
 
-Null Hypothesis: There is no difference in the average number of weeks pop songs spent at No. 1 in the 1980s and the early 2000s.
+Null Hypothesis: Pop songs in the early 2000s did not spend more than 2 weeks longer on average at No. 1 than Pop songs in the 1980s.
 
-Alternative Hypothesis: The average number of weeks pop songs spent at No. 1 is different between the two decades. 
+Alternative Hypothesis: Pop songs in the early 2000s spent more than 2 weeks on average at No. 1 than Pop songs in the 1980s.
 
-8) ANOVA Test 
+##8) ANOVA Test 
 
 I'm adding a "decade" variable to each of the datasets:
 ```{r}
@@ -115,3 +116,75 @@ summary(anova_result)
 ```
 
 The ANOVA output shows whether the difference in means is statistically significant. The p-value is greater than 0.05, so I fail to reject the null hypothesis and conclude that the difference in popularity (based on weeks at No. 1) is not statistically significant. The data does not provide strong enough evidence to say that pop songs were more popular in the 2000s despite it being an average of 2.9 weeks at No. 1. It appears that pop song chart performance was fairly similar across the two decades. 
+
+##9) Z-Scores
+
+First I'm calculating z-scores for each decade:
+```{r}
+pop_80s <- pop_80s |>
+mutate(z_score = (weeks_at_number_one - mean(weeks_at_number_one, na.rm = TRUE)) /
+sd(weeks_at_number_one, na.rm = TRUE))
+
+pop_2000s <- pop_2000s |>
+mutate(z_score = (weeks_at_number_one - mean(weeks_at_number_one, na.rm = TRUE)) /
+sd(weeks_at_number_one, na.rm = TRUE))
+```
+
+Z-scores summarized for each decade:
+```{r}
+z_80s_stats <- pop_80s |> summarise(
+mean_z = mean(z_score, na.rm = TRUE),
+sd_z = sd(z_score, na.rm = TRUE),
+min_z = min(z_score, na.rm = TRUE),
+max_z = max(z_score, na.rm = TRUE)
+)
+
+z_2000s_stats <- pop_2000s |> summarise(
+mean_z = mean(z_score, na.rm = TRUE),
+sd_z = sd(z_score, na.rm = TRUE),
+min_z = min(z_score, na.rm = TRUE),
+max_z = max(z_score, na.rm = TRUE)
+)
+
+z_80s_stats
+z_2000s_stats
+```
+
+##Z-Score Analysis:
+
+Z-scores will compare how extreme a song’s performance was relative to its own decade. A Z-score of:
+
++/-1: the song performed 1 standard deviation above or below the decade’s mean
++/-2: the song performed 2 standard deviations above or below the decade's mean. 
+
+After calculating Z-scores for both groups:
+
+The mean Z-score for the 1980s was approximately -2.6, and the mean Z-score for the early 2000s was approximately 1.6. The 1980s z-score may warrant investigation because it's greater than -2. The early 2000s z-score represents the typical values (about 95% of the data).
+
+The 2000s likely show larger max and min Z-scores, meaning the decade contained more extreme hits—songs that performed far above or below the decade’s typical No. 1 duration.
+
+The 1980s have a narrower Z-score range, meaning their chart performance was more consistent and clustered around the mean.
+
+Conclusion:       
+
+While the 2000s had a slightly higher raw mean number of weeks at No. 1, Z-scores reveal that the decade also had greater variability and more extreme outliers. 
+
+##10) Data Visualization
+
+Here I'm creating a bar chart comparing the mean weeks at No. 1
+```{r}
+mean_df <- pop_combined |>
+  group_by(decade) |>
+  summarise(mean_weeks = mean(weeks_at_number_one, na.rm = TRUE))
+
+ggplot(mean_df, aes(x = decade, y = mean_weeks, fill = decade)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = round(mean_weeks, 2)), vjust = -0.5) +
+  labs(
+    title = "Average Weeks at No. 1 for Pop Songs by Decade",
+    x = "Decade",
+    y = "Average Weeks at Number One"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```

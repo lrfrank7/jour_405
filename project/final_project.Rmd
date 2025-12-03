@@ -188,3 +188,7 @@ ggplot(mean_df, aes(x = decade, y = mean_weeks, fill = decade)) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
+Using simple regression first 
+
+whether or not the decade (80s or 2000s) determine how many weeks at no. 1 the song is (aka how popular the song is) 
+

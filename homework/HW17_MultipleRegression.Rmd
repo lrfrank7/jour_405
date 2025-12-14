@@ -1,9 +1,8 @@
 ---
 title: "Multiple Regression Analysis: Maryland Voter Turnout"
-name: "YOUR NAME HERE"
-date: 8-24-2025
+name: Lauren Frank
+date: 12-8-2025
 ---
-
 # Introduction
 
 Multiple regression analysis is a statistical method used to understand the relationship between one dependent variable and two or more independent variables. This analysis is particularly useful in journalism for exploring complex relationships in civic data, such as how different demographic and socioeconomic factors collectively impact voter turnout. By understanding these relationships, journalists can provide deeper insights into civic participation patterns and identify potential barriers to voting.
@@ -27,8 +26,9 @@ head(md_turnout)
 
 Before building our model, let's explore the data to understand the variables and their relationships. Examine the correlation matrix to see how the independent variables relate to each other and to the dependent variable (voter turnout). Which variables seem to be correlated? Are there any that are not correlated at all? Also look at the multiple scatterplots. Which variables seem to have a linear relationship with the dependent variable? Which do not?
 
-ANSWER HERE
+According to the correlation matrix, some of the variables positively correlated with voter turnout include income, % of people with a bachelors degree or higher, median age and % of white people. Also, unemployment rate and population showed a negative correlation with voter turnout. It seems like there is the highest correlation between income and education. 
 
+Looking at the multiple scatterplots, several variables show a fairly clear linear relationship with voter turnout. Income, median age, % with a bachelor’s degree or higher and % white all display positive, roughly linear trends, where voter turnout increases as the value of each predictor increases. % unemployed shows a noticeable negative linear relationship, with turnout decreasing as unemployment rises. Population does not show a strong linear relationship with voter turnout because there are more outliers.
 
 ```{r}
 # Summary statistics
@@ -90,7 +90,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Examine the output of the model, checking the coefficients, residuals, and overall model fit. How well does this multiple variable model predict turnout? Do any of the variables seem to be insignificant? Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+The multiple variable model predicts voter turnout well. The multiple R-squared value of 0.85 indicates that about 85% of the variation in county-level voter turnout is explained by the various independent variables. Additionally, the residuals are relatively small and centered around zero, which suggests that the model fits the data reasonably well without extreme prediction errors. The model also shows that there's a statistically insignificant relationship between voter turnout and % unemployed, % bachelors degree or higher and population because P > 0.05 in all these scenarios. Generally, this model is useful. For example, it confirms that population size does not meaningfully affect turnout in this model.
 
 ```{r}
 # Build initial model with all predictors
@@ -104,19 +104,19 @@ summary(initial_model)
 
 Create three alternative models by adding or removing variables to see if we can improve the model's performance. Turnout will always be the dependent variable, but you should alter the independent variables by removing or adding some. Then compare the models using adjusted R-squared values. Are any of the models significantly better than the others?
 
-ANSWER HERE
+Among the three alternative models, Model 4 performs best. Model 4, which includes income, % with a bachelor’s degree or higher, and % white, explains a substantial portion of the variation in voter turnout. It's adjusted R-squared value of 0.74 is the highest of the models. Model 4 explains approximately 74% of the variation in voter turnout while using fewer predictors than the full model. 
 
 ```{r}
 # Model 2
-model2 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model2 <- lm(turnout ~ income + pct_bachelors_higher, data = md_turnout)
 summary(model2)
 
 # Model 3
-model3 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model3 <- lm(turnout ~ income + pct_bachelors_higher + median_age + population, data = md_turnout)
 summary(model3)
 
 # Model 4
-model4 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model4 <- lm(turnout ~ income + pct_bachelors_higher + pct_white, data = md_turnout)
 summary(model4)
 
 # Compare models
@@ -140,9 +140,8 @@ ggplot(model_comparison, aes(x = reorder(Model, Adjusted_R_squared), y = Adjuste
        x = "Model")
 ```
 
-
 ## Task 4: Using the Model (3 points)
 
 Without using the words "multiple regression model", describe how you could use this analysis to cover an election or voter participation story.
 
-ANSWER HERE
+I could use this analysis to help explain why voter turnout differs across counties in MD. The findings make it possible to identify which factors such as income levels, age and race are associated with higher or lower voter turnout in different counties. Reporting on this data is important because it highlights counties with consistently lower turnout, and the data helps explain the reasons for those patterns. This approach could also guide the reporting toward marginalized communities that face barriers to voting. The focus of the story could be on why these communities have lower voter participation, rather than on the election results. 

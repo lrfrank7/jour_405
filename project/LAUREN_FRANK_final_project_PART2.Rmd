@@ -188,7 +188,31 @@ ggplot(mean_df, aes(x = decade, y = mean_weeks, fill = decade)) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
-Using simple regression first 
+## Data Visualization Continued
+The pink rectangle on the bar graph shows that pop songs in the 1980s were at No.1 for an average of 2.4 weeks. The blue rectangle on the bar graph shows that pop songs in the early 2000s were at No. 1 for an average of 2.91 weeks. The bar graph clearly displays the average weeks pop songs were at No.1 for in the 1980s and early 2000s. 
 
-whether or not the decade (80s or 2000s) determine how many weeks at no. 1 the song is (aka how popular the song is) 
+##Story Pitch
 
+Main Findings: 
+
+This project examined whether pop songs were more popular in the 1980s or the early 2000s, using weeks spent at No. 1 on the Billboard Hot 100 as a factor for popularity. While descriptive statistics initially suggested that pop songs in the early 2000s spent slightly longer at No. 1 on average (2.9 weeks) than pop songs in the 1980s (2.4 weeks), further statistical testing complicates that narrative.
+
+The ANOVA test showed that this difference was not statistically significant, meaning the observed gap could be due to random variation rather than a true shift in pop music dominance. The longevity of the pop songs on the billboard No. 1 appears similar across the two decades.
+
+In addition, the Z-score analysis adds important context. The early 2000s exhibited greater variability and more extreme outliers, suggesting a that few massive hits dominated the charts for longer periods of time, while other songs faded more quickly. The 1980s showed more consistency, with pop songs clustering closer to the decade’s mean number of weeks at No. 1.
+
+The findings suggest that pop music did not necessarily become more dominant in the early 2000s, but rather that the distribution of success changed.
+
+Potential Problems and Limitations: 
+
+1. Sample size imbalance: The dataset includes more pop No. 1 songs from the 1980s than the early 2000s which may affect comparisons.
+
+2. Definition of popularity: While the # of weeks at No. 1 captures a song's popularity, the decade alone isn't the only factor that captures the popularity of a song. There are several other variables besides "decade" that could've contributed to the song's popularity, including the artist, BPM or danceability score. 
+
+Reporting Plan:
+
+1. Interview music historians or pop culture scholars to contextualize changes in chart behavior between the 1980s and early 2000s. Could help answer the question/limitation of whether other factors contributed to a pop song's popularity besides the decade?
+
+2. Compare pop songs’ performance to other genres (hip-hop, rock) during the same decades.
+
+3. Include audience perspective that comments on how pop music consumption felt different in early 2000s versus the 1980s. 
